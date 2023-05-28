@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 
 const Home = () => {
-  const [BombMap,setBombMap] = useState([
+  const [bombMap,setBombMap] = useState([
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
@@ -45,13 +45,13 @@ const Home = () => {
   //11 ->ボムセル  
   
   const clickCell = (x: number, y: number) => {
-    const newBombMap: number[][] = JSON.parse(JSON.stringify(BombMap));
+    const newBombMap: number[][] = JSON.parse(JSON.stringify(bombMap));
     const newUserInput: number[][] = JSON.parse(JSON.stringify(UserInput));
     newUserInput[y][x] = 1;
     setUserInput(newUserInput);
 
     let BombExist = false; 
-    for (const row of BombMap) {
+    for (const row of bombMap) {
       for (const cell of row) {
         if (cell === 1) {
           BombExist = true
@@ -70,35 +70,48 @@ const Home = () => {
         }
       }
       setBombMap(newBombMap);
+      console.table(newBombMap);
+
     }
     if (!BombExist) {
       SetBomb()
     }
   };
   
-  const around8 = () => {
+  const around8 = (x: number, y: number) => {
     const offsets = [
       [-1, -1], [-1, 0], [-1, 1],
       [0, -1], [0, 1],
       [1, -1], [1, 0], [1, 1]
     ];
     let around_bomb_count = 0
-    for (let row of UserInput) {
-      for (let cell of row) {
-        for (let [dx, dy] of offsets) {
-          let nx = cell + dx
-          let ny = cell + dy
-          if (nx >= 0 && nx < board.length && ny >= 0 && ny < board.length) {
-            if (BombMap[ny][nx] === 1) {
-              around_bomb_count ++
-            }
-          }
+    for (let [dx, dy] of offsets) {
+      let nx = x + dx
+      let ny = y + dy
+      if (nx >= 0 && nx < board.length && ny >= 0 && ny < board.length) {
+        if (bombMap[ny][nx] === 1) {
+          around_bomb_count ++
+        }
+        board[y][x] = around_bomb_count;
+      }
+    }
+    if (board[y][x] === 0) {
+      for (let [dx, dy] of offsets) {
+        let nx = x + dx
+        let ny = y + dy
+        if (nx >= 0 && nx < board.length && ny >= 0 && ny < board.length && board[ny][nx] === -1) {
+          around8(nx,ny)
         }
       }
     }
-    return around_bomb_count;
   }
-  console.table(board);
+  UserInput.map((row,y)=>
+  {row.map((cell,x)=>
+    {if (UserInput[y][x] === 1) {
+      around8(x,y)
+     }
+    })
+  }) 
   return (
     <div className={styles.container}>
       <div className={styles.board}>
