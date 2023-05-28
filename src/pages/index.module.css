@@ -35,37 +35,7 @@
   width: 30px;
   height: 30px;
   background: url("~/assets/images/icons.png");
-}
-
-.stone_type2 {
-  background-position: -30px;
-}
-.stone_type3 {
-  background-position: -60px;
-}
-.stone_type4 {
-  background-position: -90px;
-}
-.stone_type5 {
-  background-position: -120px;
-}
-.stone_type6 {
-  background-position: -150px;
-}
-.stone_type7 {
-  background-position: -180px;
-}
-.stone_type8 {
-  background-position: -210px;
-}
-.stone_type9 {
-  background-position: -240px;
-}
-.stone_type10 {
-  background-position: -270px;
-}
-.stone_type11 {
-  background-position: -300px;
+  background-repeat: no-repeat;
 }
 
 .board {
