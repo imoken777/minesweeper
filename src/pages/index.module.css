@@ -15,11 +15,11 @@
   display: flex;
   width: 30px;
   height: 30px;
-  border: solid 1px rgb(124, 122, 122);
+  border: solid 1px rgb(124 122 122);
   white-space: pre;
 }
 
-.cell_block{
+.cell_block {
   justify-content: center;
   align-items: center;
   display: flex;
@@ -34,7 +34,7 @@
 .stone_type1 {
   width: 30px;
   height: 30px;
-  background: url("~/assets/images/icons.png");
+  background: url('~/assets/images/icons.png');
   background-repeat: no-repeat;
 }
 
@@ -43,5 +43,12 @@
   flex-wrap: wrap;
   width: 270px;
   height: 270px;
-  background-color: rgb(214, 212, 212);
+  background-color: rgb(214 212 212);
+}
+
+.face {
+  width: 30px;
+  height: 30px;
+  background: url('~/assets/images/icons.png');
+  background-repeat: no-repeat;
 }
