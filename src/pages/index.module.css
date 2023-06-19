@@ -38,6 +38,7 @@
   background-repeat: no-repeat;
 }
 
+
 .board {
   display: flex;
   flex-wrap: wrap;

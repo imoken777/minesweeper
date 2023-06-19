@@ -41,7 +41,7 @@ const Home = () => {
   //9 ->石＋はてな
   //10 ->石＋旗
   //11 ->ボムセル
-
+  let faceCount = 12;
   const clickCell = (x: number, y: number) => {
     const newBombMap: number[][] = JSON.parse(JSON.stringify(bombMap));
     const newUserInput: number[][] = JSON.parse(JSON.stringify(userInput));
@@ -102,9 +102,11 @@ const Home = () => {
         row.forEach((cell, cellIndex) => {
           if (bombMap[rowIndex][cellIndex] === 1) {
             board[rowIndex][cellIndex] = 11;
+            faceCount = 14;
           }
         });
       });
+      board[y][x] = 15
     } else {
       for (const [dx, dy] of offsets) {
         const nx = x + dx;
@@ -137,17 +139,15 @@ const Home = () => {
       }
     });
   });
-  const faceCount = [[12]]; //機能してない
   const handleFaceClick = () => {
-    faceCount[0][0] = 14;
-    console.log(faceCount);
+    faceCount = 14;
   };
   return (
     <div className={styles.container}>
       <div
         className={styles.face}
         onClick={() => handleFaceClick()}
-        style={{ backgroundPosition: faceCount[0][0] * -30 + 30 }}
+        style={{ backgroundPosition: faceCount * -30 + 30 }}
       />
       <div className={styles.board}>
         {board.map((row, y) =>
@@ -161,7 +161,10 @@ const Home = () => {
               {block !== -1 && (
                 <div
                   className={styles.stone_type1}
-                  style={{ backgroundPosition: block * -30 + 30 }}
+                  style={{ 
+                    backgroundPosition: (block === 15) ? 11 * -30 + 30:block * -30 + 30 ,
+                    backgroundColor: (block === 15) ? 'red' : undefined
+                  }}
                 />
               )}
             </div>
