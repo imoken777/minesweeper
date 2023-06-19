@@ -139,9 +139,21 @@ const Home = () => {
       }
     });
   });
+  let gameEndCount = 0
+  board.map((row, y) => {
+    row.map((cell, x) => {
+      if (board[y][x] !== -1) {
+        gameEndCount++
+        if(gameEndCount === 81) {
+          faceCount = 13
+        }
+      }
+    })
+  })
   const handleFaceClick = () => {
     faceCount = 14;
   };
+  console.table(board)
   return (
     <div className={styles.container}>
       <div
