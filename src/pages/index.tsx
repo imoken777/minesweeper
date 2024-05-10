@@ -89,11 +89,15 @@ const Home = () => {
     const newUserInput: number[][] = JSON.parse(JSON.stringify(userInput));
     event.preventDefault(); // デフォルトの右クリックメニューを無効化
     console.log('Right click is triggered');
-    if (userInput[y][x] !== 10) {
+
+    if (board[y][x] === -1) {
       newUserInput[y][x] = 10;
-    } else {
+    }
+
+    if (userInput[y][x] === 10) {
       newUserInput[y][x] = -1;
     }
+
     setUserInput(newUserInput);
   };
 
