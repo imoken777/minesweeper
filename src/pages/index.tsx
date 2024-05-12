@@ -2,28 +2,6 @@ import React, { useState } from 'react';
 import styles from './index.module.css';
 
 const Home = () => {
-  const [bombMap, setBombMap] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
-  const [userInput, setUserInput] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
   const initialBoard = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,7 +13,10 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
-  
+
+  const [bombMap, setBombMap] = useState(initialBoard);
+  const [userInput, setUserInput] = useState(initialBoard);
+
   const board = [
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -70,13 +51,13 @@ const Home = () => {
       }
     }
     const SetBomb = () => {
-      let Bombcount = 0;
-      while (Bombcount < 10) {
+      let bombCount = 0;
+      while (bombCount < 10) {
         const randomY = Math.floor(Math.random() * 9);
         const randomX = Math.floor(Math.random() * 9);
         if (newBombMap[randomY][randomX] !== 1 && randomX !== x && randomY !== y) {
           newBombMap[randomY][randomX] = 1;
-          Bombcount++;
+          bombCount++;
         }
       }
       setBombMap(newBombMap);
@@ -88,7 +69,6 @@ const Home = () => {
   const rightClick = (x: number, y: number, event: React.MouseEvent) => {
     const newUserInput: number[][] = JSON.parse(JSON.stringify(userInput));
     event.preventDefault(); // デフォルトの右クリックメニューを無効化
-    console.log('Right click is triggered');
 
     if (board[y][x] === -1) {
       newUserInput[y][x] = 10;
@@ -122,7 +102,7 @@ const Home = () => {
           }
         });
       });
-      board[y][x] = 15
+      board[y][x] = 15;
     } else {
       for (const [dx, dy] of offsets) {
         const nx = x + dx;
@@ -155,22 +135,21 @@ const Home = () => {
       }
     });
   });
-  let gameEndCount = 0
+  let gameEndCount = 0;
   board.map((row, y) => {
     row.map((cell, x) => {
       if (board[y][x] !== -1) {
-        gameEndCount++
-        if(gameEndCount === 81) {
-          faceCount = 13
+        gameEndCount++;
+        if (gameEndCount === 81) {
+          faceCount = 13;
         }
       }
-    })
-  })
+    });
+  });
   const handleFaceClick = () => {
-    setUserInput(initialBoard)
-    setBombMap(initialBoard)
+    setUserInput(initialBoard);
+    setBombMap(initialBoard);
   };
-  console.table(board)
   return (
     <div className={styles.container}>
       <div
@@ -182,17 +161,17 @@ const Home = () => {
         {board.map((row, y) =>
           row.map((block, x) => (
             <div
-              className={block === -1 ? styles.cell_block : styles.cell}
+              className={block === -1 ? styles.cellblock : styles.cell}
               key={`${x}-${y}`}
               onClick={() => clickCell(x, y)}
               onContextMenu={(event) => rightClick(x, y, event)}
             >
               {block !== -1 && (
                 <div
-                  className={styles.stone_type1}
-                  style={{ 
-                    backgroundPosition: (block === 15) ? 11 * -30 + 30:block * -30 + 30 ,
-                    backgroundColor: (block === 15) ? 'red' : undefined
+                  className={styles.images}
+                  style={{
+                    backgroundPosition: block === 15 ? 11 * -30 + 30 : block * -30 + 30,
+                    backgroundColor: block === 15 ? 'red' : undefined,
                   }}
                 />
               )}

@@ -19,7 +19,7 @@
   white-space: pre;
 }
 
-.cell_block {
+.cellblock {
   justify-content: center;
   align-items: center;
   display: flex;
@@ -31,13 +31,12 @@
   white-space: pre;
 }
 
-.stone_type1 {
+.images {
   width: 30px;
   height: 30px;
   background: url('~/assets/images/icons.png');
   background-repeat: no-repeat;
 }
-
 
 .board {
   display: flex;
